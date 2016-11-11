@@ -330,7 +330,13 @@ public class BTNavigationDropdownMenu: UIView {
     }
     
     override public func layoutSubviews() {
-        self.menuTitle.sizeToFit()
+        
+        let titleWidth = self.menuTitle.intrinsicContentSize().width
+        let maxWidth = CGRectGetWidth(self.navigationController!.view.bounds)/2
+        var frame = self.menuTitle.frame
+        frame.size.width = titleWidth > maxWidth ? maxWidth : titleWidth
+        self.menuTitle.frame = frame
+        
         self.menuTitle.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         self.menuTitle.textColor = self.configuration.menuTitleColor
         self.menuArrow.sizeToFit()
